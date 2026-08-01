@@ -1,0 +1,31 @@
+name: Task
+description: Create a new task.
+title: "[Task]: "
+labels:
+  - task
+
+body:
+  - type: textarea
+    id: description
+    attributes:
+      label: Description
+      description: What needs to be done?
+      placeholder: Describe the task...
+    validations:
+      required: true
+
+  - type: textarea
+    id: acceptance
+    attributes:
+      label: Success Criteria
+      description: How will we know this task is complete?
+      placeholder: |
+        - [ ] Criterion 1
+        - [ ] Criterion 2
+
+  - type: textarea
+    id: notes
+    attributes:
+      label: Additional Notes
+      description: Links, context, or anything else that may help.
+      placeholder: Optional
