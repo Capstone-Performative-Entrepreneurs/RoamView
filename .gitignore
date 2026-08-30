@@ -1,0 +1,12 @@
+# Editor / IDE (never commit local tool config)
+.cursor/
+.vscode/
+.idea/
+*.swp
+*.swo
+.DS_Store
+
+# Env and secrets
+.env
+.env.*
+*.pem
