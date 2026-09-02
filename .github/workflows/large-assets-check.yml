@@ -1,0 +1,54 @@
+name: Large assets check
+
+on:
+  pull_request:
+    types: [opened, reopened, synchronize, edited]
+
+jobs:
+  check-large-assets:
+    name: Check for large files in PR
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Scan changed files for large assets
+        env:
+          SIZE_LIMIT: 1048576 # 1 MB in bytes
+        run: |
+          set -euo pipefail
+          echo "Scanning changed files between base and head..."
+          BASE_SHA="${{ github.event.pull_request.base.sha }}"
+          HEAD_SHA="${{ github.event.pull_request.head.sha }}"
+          echo "Base: $BASE_SHA"
+          echo "Head: $HEAD_SHA"
+
+          changed=$(git diff --name-only "$BASE_SHA" "$HEAD_SHA")
+          if [ -z "$changed" ]; then
+            echo "No changed files detected."
+            exit 0
+          fi
+
+          oversized=()
+          while IFS= read -r f; do
+            if [ -f "$f" ]; then
+              # stat -c%s works on linux; fallback to stat -f%z if needed
+              size=$(stat -c%s "$f" 2>/dev/null || stat -f%z "$f")
+              if [ "$size" -gt "$SIZE_LIMIT" ]; then
+                oversized+=("$f:$size")
+              fi
+            fi
+          done <<< "$changed"
+
+          if [ ${#oversized[@]} -ne 0 ]; then
+            echo "Files over $(($SIZE_LIMIT / 1024)) KB found:" >&2
+            for i in "${oversized[@]}"; do
+              echo "$i" >&2
+            done
+            echo "::error title=Large files detected::Files larger than 1MB were added or modified in this PR." >&2
+            exit 1
+          fi
+
+          echo "No oversized files found."
