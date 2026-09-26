@@ -1,0 +1,14 @@
+name: Epic
+description: Group related tasks or user stories under a shared outcome.
+title: "[EPIC-]: "
+labels:
+  - epic
+body:
+  - type: textarea
+    id: purpose
+    attributes:
+      label: Purpose
+      description: What outcome does this epic establish, and why is it needed?
+      placeholder: Describe the shared outcome for the related work...
+    validations:
+      required: true

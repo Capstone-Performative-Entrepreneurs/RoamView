@@ -1,0 +1,40 @@
+name: User Story
+description: Describe a functional requirement from a user's perspective.
+title: "[Story]: "
+labels:
+  - user-story
+body:
+  - type: textarea
+    id: requirements
+    attributes:
+      label: Requirements
+      description: State the functional requirement from the user's perspective.
+      placeholder: "As a <role>, I want <capability> to <benefit>."
+    validations:
+      required: true
+
+  - type: textarea
+    id: related_specifications
+    attributes:
+      label: Related specifications
+      description: Link relevant specifications from the project wiki.
+      placeholder: |
+        - [Specification name](wiki URL)
+
+  - type: textarea
+    id: conversation_outcome
+    attributes:
+      label: Conversation outcome
+      description: Keep this section updated with decisions, clarifications, and agreed changes from the story discussion.
+      placeholder: Summarize the current outcome of the conversation...
+
+  - type: textarea
+    id: confirmation
+    attributes:
+      label: Confirmation
+      description: List the acceptance criteria as outcomes that must be true when this story is complete. Do not describe test procedures.
+      placeholder: |
+        - Observable outcome that must be true
+        - Observable outcome that must be true
+    validations:
+      required: true
