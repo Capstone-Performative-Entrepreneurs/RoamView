@@ -1,0 +1,105 @@
+# =============================================================================
+# hardware/.gitignore
+# Covers: ros/ (ROS 2 + colcon + Docker), firmware/ (Arduino/PlatformIO/ESP-IDF),
+# electrical/ (KiCad/EDA + mechanical CAD), plus general OS/editor/log noise.
+# =============================================================================
+
+# --- ROS 2 / colcon workspaces (ros/) ---------------------------------------
+build/
+install/
+log/
+devel/
+.colcon/
+# NOTE: do NOT ignore COLCON_IGNORE marker files — they're intentional.
+
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.venv/
+venv/
+
+# --- Docker ------------------------------------------------------------------
+*.env
+!.env.example
+docker-compose.override.yml
+
+# --- Firmware: Arduino / PlatformIO / ESP-IDF (firmware/) -------------------
+# PlatformIO
+.pio/
+.pioenvs/
+.piolibdeps/
+**/.pio/
+
+# ESP-IDF
+sdkconfig.old
+managed_components/
+dependencies.lock
+
+# Compiled firmware artifacts (if built outside an IDE-managed temp dir)
+*.hex
+*.bin
+*.elf
+*.map
+build-*/
+
+# --- Electrical / mechanical CAD (electrical/) --------------------------------
+# KiCad (patterns from github/gitignore's KiCad.gitignore)
+*.000
+*.bak
+*.bck
+*.kicad_pcb-bak
+*.kicad_sch-bak
+*-backups
+*-cache*
+*-bak
+*-bak*
+*~
+~*
+_autosave-*
+\#auto_saved_files\#
+*.tmp
+*-save.pro
+*-save.kicad_pcb
+fp-info-cache
+~*.lck
+**/*-backups/*.zip
+.history
+*.kicad_prl
+
+# KiCad/EDA generated outputs — scoped to electrical/ so this never catches
+# legitimate .xml/.csv/.net files elsewhere (e.g. ROS package.xml, docs data)
+electrical/**/*.net
+electrical/**/*.dsn
+electrical/**/*.ses
+electrical/**/*.xml
+electrical/**/*.csv
+electrical/**/gerbers/
+electrical/**/fab-output/
+electrical/**/plot/
+
+# SolidWorks / mechanical CAD lock & temp files
+~$*.sld*
+*.sldprt.lock
+*.sldasm.lock
+*.slddrw.lock
+
+# Fusion 360 / STEP export scratch
+*.f3d.bak
+*.step.bak
+*.stp.bak
+
+# --- Editors / IDEs -----------------------------------------------------------
+.vscode/*
+!.vscode/extensions.json
+.idea/
+*.swp
+*.swo
+
+# --- OS cruft ------------------------------------------------------------------
+.DS_Store
+Thumbs.db
+Desktop.ini
+
+# --- Logs ------------------------------------------------------------------
+*.log
