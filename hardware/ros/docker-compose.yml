@@ -1,0 +1,18 @@
+services:
+  ros2:
+    build:
+      context: .
+      args:
+        ROS_DISTRO: lyrical
+        INSTALL_DESKTOP: "false"   # switch to "true" to include RViz2/demos/GUI tools
+    image: ros2-lyrical:latest
+    container_name: ros2_lyrical
+    stdin_open: true              # keep STDIN open (docker run -i)
+    tty: true                     # allocate a pseudo-TTY   (docker run -t)
+    network_mode: host            # simplest way to let ROS 2 nodes discover each other
+    environment:
+      - DISPLAY=${DISPLAY}        # needed only if INSTALL_DESKTOP=true / running GUI apps
+      - QT_X11_NO_MITSHM=1
+    volumes:
+      - ./src:/root/ros2_ws/src           # volume for ROS. this is to be decided. 
+      - /tmp/.X11-unix:/tmp/.X11-unix:rw  # X11 socket, needed only for GUI apps (Linux host)
